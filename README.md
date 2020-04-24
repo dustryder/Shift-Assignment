@@ -1,0 +1,1 @@
+Learning project for Signal Shift using flask, bootstrap and mysql
