@@ -5,29 +5,40 @@ import extra.config
 app = Flask(__name__)
 app.config["SECRET_KEY"] = extra.config.SECRET_KEY
 
-@app.route('/')
-@app.route('/index')
+@app.route('/', methods = ['POST', 'GET'])
 def home():
 
-	return render_template("lookupStudent.html", title = 'Student Lookup')
+	if request.method == 'POST':
+		pass
+	else:
+		return render_template("lookupStudent.html", title = 'Student Lookup')
 
 
-@app.route('/course')
+@app.route('/course', methods = ['POST', 'GET'])
 def course():
 
-	return render_template("addCourse.html", title = 'Course Admin')
+	if request.method == 'POST':
+		pass
+	else:
+		return render_template("addCourse.html", title = 'Course Admin')
 
 
-@app.route('/student')
+@app.route('/student', methods = ['POST', 'GET'])
 def student():
 
-	return render_template("addStudent.html", title = 'Student Admin')
+	if request.method == 'POST':
+		pass
+	else:
+		return render_template("addStudent.html", title = 'Student Admin')
 
 
-@app.route('/enrolment')
+@app.route('/enrolment', methods = ['POST', 'GET'])
 def enrol():
 
-	return render_template("enrolStudent.html", title = 'Enrolment Admin')
+	if request.method == 'POST':
+		pass
+	else:
+		return render_template("enrolStudent.html", title = 'Enrolment Admin')
 
 
 
