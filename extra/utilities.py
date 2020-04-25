@@ -6,7 +6,7 @@ import requests
 import re
 from random import randint, choice
 from bs4 import BeautifulSoup
-from dbconfig import get_connection, get_cursor, close_db
+from dbconfig import get_connection, get_cursor, close_connection
 
 
 URL = "https://www.canterbury.ac.nz/courseinfo/GetCourses.aspx?coursecodeprefixes=COSC%7CSENG%7CENCE"
@@ -95,7 +95,7 @@ def insert_into_db(datafile, table_name):
 
 		cursor.executemany(query_string, data)
 		connection.commit()
-		close_db(connection, cursor)
+		close_connection(connection, cursor)
 
 
 #insert_into_db(STUDENT_DATA, "student")

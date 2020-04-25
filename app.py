@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for, session, flash
 import extra.config
-from extra.dbconfig import get_connection, close_db, get_cursor, execute
+import re
+from extra.dbconfig import get_connection, close_connection, get_cursor, execute, commit
 
 
 app = Flask(__name__)
@@ -18,23 +19,49 @@ def home():
 @app.route('/course', methods = ['POST', 'GET'])
 def add_course():
 
+	"""Handler to add courses to the database"""
+
+	def render_page(message=""):
+		"""Nested function to reduce clutter and repetition"""
+		return render_template("addCourse.html", message = message)
+
 	if request.method == 'POST':
 		course_code = request.form['course_code']
 		course_title = request.form['course_title']
 		delivery_year = request.form['delivery_year']
 
+		code_valid = re.match("^[a-zA-Z]{4}[0-9]{3}$", course_code)
+		title_valid = len(course_title) <= 100
+		year_valid = delivery_year.isdigit() and len(delivery_year) <= 4
+
+		if not all([code_valid, title_valid, year_valid]):
+			return render_page("Please check if the entered data is valid")
+
 		connection = get_connection()
 		cursor = get_cursor(connection)
+
+		if not cursor or not connection:
+			return render_page("Please check your database connection settings")
+
+		query = "SELECT * FROM course WHERE course_code = %s"
+		result = execute(cursor, query, (course_code,))
+		if result:
+			return render_page("Sorry, that course code is already in this database. Try another")
 
 		query = "INSERT INTO course VALUE (%s, %s, %s)"
 		course_data = (course_code, course_title, delivery_year)
 
-		execute(cursor, query, course_data)
-		connection.commit()
-		close_db(connection, cursor)
-		return redirect(request.url)
+		result = execute(cursor, query, course_data)
+		commit_success = commit(connection)
+		close_connection(connection, cursor)
+
+		if result and commit_success:
+			return render_page("Course successfully added")
+
+		return render_page("Failed to add course. Try again later")	
+
 	else:
-		return render_template("addCourse.html", title = 'Course Admin')
+		return render_page()
 
 
 @app.route('/student', methods = ['POST', 'GET'])
@@ -43,7 +70,7 @@ def student():
 	if request.method == 'POST':
 		pass
 	else:
-		return render_template("addStudent.html", title = 'Student Admin')
+		return render_template("addStudent.html")
 
 
 @app.route('/enrolment', methods = ['POST', 'GET'])
@@ -52,11 +79,9 @@ def enrol():
 	if request.method == 'POST':
 		pass
 	else:
-		return render_template("enrolStudent.html", title = 'Enrolment Admin')
-
-
+		return render_template("enrolStudent.html")
 
 
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5000)
+    app.run(debug = True, port = 5000)
