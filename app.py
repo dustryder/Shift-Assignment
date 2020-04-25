@@ -1,8 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for, session
-import extra.config
-import re
-from extra.dbconfig import get_connection, close_connection, get_cursor, execute, commit
 from extra.validators import validate_course
+import extra.dbconfig as db
+import extra.config
 
 
 app = Flask(__name__)
@@ -27,6 +26,7 @@ def add_course():
 		return render_template("addCourse.html", message = message)
 
 	if request.method == 'POST':
+
 		course_code = request.form['course_code']
 		course_title = request.form['course_title']
 		delivery_year = request.form['delivery_year']
@@ -36,23 +36,23 @@ def add_course():
 			return render_page("Please check if the entered data is valid")
 
 		#Form a successful database connection
-		connection = get_connection()
-		cursor = get_cursor(connection)
+		connection = db.get_connection()
+		cursor = db.get_cursor(connection)
 		if not cursor or not connection:
 			return render_page("Please check your database connection settings")
 
 		#Check for duplication of primary key
 		query = "SELECT * FROM course WHERE course_code = %s"
-		result = execute(cursor, query, (course_code,))
+		result = db.execute(db.MODE_SELECT, cursor, query, (course_code,))
 		if result:
 			return render_page("Sorry, that course code is already in this database. Try another")
 
 		#Insert data into database
 		query = "INSERT INTO course VALUE (%s, %s, %s)"
 		course_data = (course_code, course_title, delivery_year)
-		result = execute(cursor, query, course_data)
-		commit_success = commit(connection)
-		close_connection(connection, cursor)
+		result = db.execute(db.MODE_INSERT, cursor, query, course_data)
+		commit_success = db.commit(connection)
+		db.close_connection(connection, cursor)
 		if result and commit_success:
 			return render_page("Course successfully added")
 

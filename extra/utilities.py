@@ -1,12 +1,12 @@
 """utilities.py contains functions used in the creation, formating and insertion of data used in this 
-web application"""
-
+web application
+"""
 
 import requests
 import re
 from random import randint, choice
 from bs4 import BeautifulSoup
-from dbconfig import get_connection, get_cursor, close_connection
+import dbconfig as db
 
 
 URL = "https://www.canterbury.ac.nz/courseinfo/GetCourses.aspx?coursecodeprefixes=COSC%7CSENG%7CENCE"
@@ -79,8 +79,8 @@ def insert_into_db(datafile, table_name):
 
 	"""Inserts data into the corresponding table name"""
 
-	connection = get_connection()
-	cursor = get_cursor(connection)
+	connection = db.get_connection()
+	cursor = db.get_cursor(connection)
 
 	with open(datafile, "r") as file:
 
@@ -93,9 +93,9 @@ def insert_into_db(datafile, table_name):
 		parameters = ','.join(['%s' for x in range(column_count)])
 		query_string = f"INSERT INTO {table_name} VALUES ({parameters})"
 
-		cursor.executemany(query_string, data)
-		connection.commit()
-		close_connection(connection, cursor)
+		db.execute(db.MODE_INSERT, cursor, query_string, data)
+		db.commit(connection)
+		db.close_connection(connection, cursor)
 
 
 #insert_into_db(STUDENT_DATA, "student")
