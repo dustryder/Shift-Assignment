@@ -1,7 +1,8 @@
-from flask import Flask, render_template, request, redirect, url_for, session, flash
+from flask import Flask, render_template, request, redirect, url_for, session
 import extra.config
 import re
 from extra.dbconfig import get_connection, close_connection, get_cursor, execute, commit
+from extra.validators import validate_course
 
 
 app = Flask(__name__)
@@ -21,7 +22,7 @@ def add_course():
 
 	"""Handler to add courses to the database"""
 
-	def render_page(message=""):
+	def render_page(message = ""):
 		"""Nested function to reduce clutter and repetition"""
 		return render_template("addCourse.html", message = message)
 
@@ -30,31 +31,28 @@ def add_course():
 		course_title = request.form['course_title']
 		delivery_year = request.form['delivery_year']
 
-		code_valid = re.match("^[a-zA-Z]{4}[0-9]{3}$", course_code)
-		title_valid = len(course_title) <= 100
-		year_valid = delivery_year.isdigit() and len(delivery_year) <= 4
-
-		if not all([code_valid, title_valid, year_valid]):
+		#Server side validation
+		if not validate_course(course_code, course_title, delivery_year):
 			return render_page("Please check if the entered data is valid")
 
+		#Form a successful database connection
 		connection = get_connection()
 		cursor = get_cursor(connection)
-
 		if not cursor or not connection:
 			return render_page("Please check your database connection settings")
 
+		#Check for duplication of primary key
 		query = "SELECT * FROM course WHERE course_code = %s"
 		result = execute(cursor, query, (course_code,))
 		if result:
 			return render_page("Sorry, that course code is already in this database. Try another")
 
+		#Insert data into database
 		query = "INSERT INTO course VALUE (%s, %s, %s)"
 		course_data = (course_code, course_title, delivery_year)
-
 		result = execute(cursor, query, course_data)
 		commit_success = commit(connection)
 		close_connection(connection, cursor)
-
 		if result and commit_success:
 			return render_page("Course successfully added")
 
