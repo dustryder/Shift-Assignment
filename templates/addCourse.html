@@ -2,31 +2,43 @@
 {% set active_page = "course" %}
 
 {% block body %}
-    <form action="/course" method="POST">
-    	<div class="form-group">
-    		<label for="course_code">Course Code</label>
-    		<input type="text" class="form-control">
+<div class="d-flex container-liquid justify-content-center h-100">
+
+    <form action="/course" method="POST" class="mt-5 needs-validation" novalidate>
+
+    	<div class="form-group form-inline justify-content-center">
+    		<label for="course_code" class="sr-only">Course Code</label>
+            <input type="text" class="form-control" id="course_code" placeholder="Course Code" maxlength="7" pattern="[A-Za-z]{4}[0-9]{3}" required>
+            <div class="invalid-feedback text-center">
+                Course codes should be of the form LLLLNNN
+            </div>
     	</div>
-    	<div class="form-group">
-    		<label for="course_title">Course Title</label>
-    		<input type="text" class="form-control">
+    	<div class="form-group form-inline justify-content-center">
+    		<label for="course_title" class="sr-only">Course Title</label>
+    		<input type="text" class="form-control" id="course_title" placeholder="Course Title" maxlength="100" required>
+            <div class="invalid-feedback text-center">
+                Please enter a course title
+            </div>
     	</div>
-    	<div class="form-group">
-    		<label for="delivery year">Delivery Year</label>
-    		<input type="number" min="1900" max="2099" step="1" value="2020" class="form-control">
+    	<div class="form-group form-inline justify-content-center">
+    		<label for="delivery year" class="sr-only">Delivery Year</label>
+    		<input type="number" min="1900" max="2099" class="form-control" placeholder="Year" required>
+            <div class="invalid-feedback text-center">
+                Please enter a delivery year between 1900 and 2099
+            </div>
     	</div>
 
-    	<div class="form-row justify-content-center">
-    		<div class="form-group">
+        <div class="row justify-content-center align-self-center">
+    		<div class="form-group m-1">
     			<button type="submit" class="btn btn-outline-primary">Submit</button>
-    			
     		</div>
 
-    		<div class="form-group">
-    			<button type="reset" class="btn btn-outline-primary">Reset</button>
+    		<div class="form-group m-1">
+    			<button type="reset" href="course" class="btn btn-outline-primary">Reset</button>
     		</div>
-    		
-    	</div>
+        </div>
 
     </form>
+
+</div>
 {% endblock body %}
