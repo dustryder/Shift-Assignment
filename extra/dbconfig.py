@@ -1,9 +1,9 @@
 import mysql.connector
-import config
+from extra.config import config
 
 def get_connection():
 
-	mydb = mysql.connector.connect(**config.config)
+	mydb = mysql.connector.connect(**config)
 	return mydb
 
 def close_db(connection, cursor):
@@ -14,4 +14,10 @@ def close_db(connection, cursor):
 def get_cursor(connection):
 
 	return connection.cursor()
+
+def execute(cursor, query, data):
+
+	cursor.execute(query, data)
+
+
  

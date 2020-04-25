@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, session, flash
 import extra.config
+from extra.dbconfig import get_connection, close_db, get_cursor, execute
 
 
 app = Flask(__name__)
@@ -15,10 +16,23 @@ def home():
 
 
 @app.route('/course', methods = ['POST', 'GET'])
-def course():
+def add_course():
 
 	if request.method == 'POST':
-		pass
+		course_code = request.form['course_code']
+		course_title = request.form['course_title']
+		delivery_year = request.form['delivery_year']
+
+		connection = get_connection()
+		cursor = get_cursor(connection)
+
+		query = "INSERT INTO course VALUE (%s, %s, %s)"
+		course_data = (course_code, course_title, delivery_year)
+
+		execute(cursor, query, course_data)
+		connection.commit()
+		close_db(connection, cursor)
+		return redirect(request.url)
 	else:
 		return render_template("addCourse.html", title = 'Course Admin')
 

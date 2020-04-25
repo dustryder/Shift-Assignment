@@ -5,8 +5,8 @@ window.addEventListener('load', () => {
 			if (element.checkValidity() === false) {
 				event.preventDefault();
 				event.stopPropagation();
+				element.classList.add('was-validated');
 			}
-			element.classList.add('was-validated');
 		});
 	});
 });

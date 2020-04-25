@@ -8,21 +8,21 @@
 
     	<div class="form-group form-inline justify-content-center">
     		<label for="course_code" class="sr-only">Course Code</label>
-            <input type="text" class="form-control" id="course_code" placeholder="Course Code" maxlength="7" pattern="[A-Za-z]{4}[0-9]{3}" required>
+            <input type="text" class="form-control" id="course_code" placeholder="Course Code" maxlength="7" pattern="[A-Za-z]{4}[0-9]{3}" name="course_code" required>
             <div class="invalid-feedback text-center">
                 Course codes should be of the form LLLLNNN
             </div>
     	</div>
     	<div class="form-group form-inline justify-content-center">
     		<label for="course_title" class="sr-only">Course Title</label>
-    		<input type="text" class="form-control" id="course_title" placeholder="Course Title" maxlength="100" required>
+    		<input type="text" class="form-control" id="course_title" placeholder="Course Title" maxlength="100" name="course_title" required>
             <div class="invalid-feedback text-center">
                 Please enter a course title
             </div>
     	</div>
     	<div class="form-group form-inline justify-content-center">
-    		<label for="delivery year" class="sr-only">Delivery Year</label>
-    		<input type="number" min="1900" max="2099" class="form-control" placeholder="Year" required>
+    		<label for="delivery_year" class="sr-only">Delivery Year</label>
+    		<input type="number" min="1900" max="2099" class="form-control" placeholder="Year" id="delivery_year" name="delivery_year"required>
             <div class="invalid-feedback text-center">
                 Please enter a delivery year between 1900 and 2099
             </div>
