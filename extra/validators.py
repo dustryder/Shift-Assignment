@@ -7,9 +7,6 @@ def validate_course(code, title, year):
 		title_valid = len(title) <= 100 and len(title) >= 1
 		year_valid = int(year) <= 2050 and int(year) >= 1950
 
-		print(code_valid)
-		print(title_valid)
-		print(year_valid)
 		if code_valid and title_valid and year_valid:
 			return True
 	except Exception as e:

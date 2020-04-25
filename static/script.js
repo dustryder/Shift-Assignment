@@ -11,8 +11,6 @@ window.addEventListener('load', () => {
 				element.classList.add('was-validated');
 			}
 		});
-
-
 	});
 
 	inputs.forEach(element => {
