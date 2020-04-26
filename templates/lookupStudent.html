@@ -6,5 +6,66 @@
 {% endblock title %}
 
 {% block body %}
-    <p>Lookup Page</p>
+<div class="d-flex container-liquid justify-content-center">
+
+	<form action="/" method="POST" class="mt-5 needs-validation w-100" novalidate>
+
+		<div class="row justify-content-center">
+	    	<div class="form-group col-md-3">
+	    		<label for="student_name" class="sr-only">Student Name</label>
+	    		<input type="text" class="form-control" id="student_name_lookup" placeholder="Student Name" maxlength="100" name="student_name" list="student_name" required>
+	    		<input type="hidden" id="hidden_studentid" name="student_id">
+	    		<datalist id="student_name">
+	    			{% for i in students %}
+	    				<option data-id="{{ i['id'] }}" value="{{ i['name'] }}">id: {{ i['id'] }}</option>
+	    			{% endfor %}
+	    		</datalist>
+	            <div class="invalid-feedback text-center">
+	                Please enter a name
+	            </div>
+
+	    	</div>
+    	</div>
+
+		<div class="row justify-content-center align-self-center">
+    		<div class="form-group m-1">
+    			<button type="submit" class="btn btn-outline-primary">Submit</button>
+    		</div>
+    	</div>
+
+	</form>
+</div>
+
+<div class="text-center pt-5 bottom-ephemeral-message">
+    <h5>{{ message }}</h5>
+</div>
+
+{% if courses %}
+<div class="container justify-content-center bottom-ephemeral-message">
+	<div class="text-center bottom-ephemeral-message pb-3">
+		<h4>{{ student[1] }} {{ student[2] }}</h4>
+		<p>Id: {{ student[0] }} &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp Start Year: {{ student[3] }}</p>
+	</div>
+
+	<table class="table table-hover">
+		<thead>
+			<tr>
+				{% for title in ["Course Code", "Course Title", "Delivery Year"] %}
+				<th id="zapborder" scope="col">{{ title }}</th>
+				{% endfor %}
+			</tr>
+		</thead>
+		<tbody>
+			{% for row in courses %}
+			<tr>
+				{% for data in row %}
+				<td>{{ data }}</td>
+				{% endfor %}
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+</div>
+
+{% endif %}
 {% endblock body %}

@@ -25,17 +25,21 @@ def validate_course(code, title, year):
 	return False
 	
 
-def validate_student(first, last, id, year):
-
+def validate_student(id, first=True, last=True, year=True):
 
 	try:
-		first_valid = len(first) <= STRING_MAX and len(first) >= STRING_MIN
-		last_valid = len(last) <= STRING_MAX and len(last) >= STRING_MIN
-		id_valid = int(id) <= STUDENTID_MAX and int(id) >= STUDENTID_MIN
-		year_valid = int(year) <= YEAR_MAX and int(year) >= YEAR_MIN
 
-		if first_valid and last_valid and id_valid and year_valid:
-			return True
+		id_valid = int(id) <= STUDENTID_MAX and int(id) >= STUDENTID_MIN
+
+		if not isinstance(first, bool):
+			first_valid = len(first) <= STRING_MAX and len(first) >= STRING_MIN
+			last_valid = len(last) <= STRING_MAX and len(last) >= STRING_MIN
+			year_valid = int(year) <= YEAR_MAX and int(year) >= YEAR_MIN
+
+			if first_valid and last_valid and id_valid and year_valid:
+				return True
+
+		return id_valid
 
 	except Exception as e:
 		print(e)

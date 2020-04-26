@@ -10,7 +10,7 @@ def add_course():
 
 	def render_page(message = ""):
 		"""Nested function to reduce clutter and repetition"""
-		return render_template("addCourse.html", message = message)
+		return render_template("addCourse.html", message=message)
 
 	if request.method == 'POST':
 

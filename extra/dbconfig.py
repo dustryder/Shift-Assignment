@@ -39,7 +39,7 @@ def get_cursor(connection):
 		return None
 
 
-def execute(mode, cursor, query, data):
+def execute(mode, cursor, query, data=()):
 
 	if mode == MODE_INSERT:
 

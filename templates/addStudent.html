@@ -34,7 +34,7 @@
 	    		<label for="student_id" class="sr-only">Student Id</label>
 	    		<input type="number" class="form-control" id="student_id" placeholder="Student Id" min="100000000" max="999999999" name="student_id" required>
 	            <div class="invalid-feedback text-center">
-	                Please enter a valid student id
+	                Please enter a valid student id between 100000000 and 999999999
 	            </div>
 	    	</div>
     	</div>
@@ -62,7 +62,7 @@
 
 </div>
 
-<div class="text-center pt-5 bottom-help-message">
+<div class="text-center pt-5 bottom-ephemeral-message">
     <h5>{{ message }}</h5>
 </div>
 {% endblock body %}

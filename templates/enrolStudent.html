@@ -6,5 +6,23 @@
 {% endblock title %}
 
 {% block body %}
-    <p>Enrolments Page</p>
+<div class="d-flex container-liquid justify-content-center">
+
+	<form action="/student" method="POST" class="mt-5 needs-validation w-100" novalidate>
+
+		<div class="row justify-content-center">
+	    	<div class="form-group col-md-3">
+	    		<label for="student_id" class="sr-only">Student Id</label>
+	    		<input type="number" class="form-control" id="student_id" placeholder="Student Id" min="100000000" max="999999999" name="student_id" required>
+	            <div class="invalid-feedback text-center">
+	                Please enter a valid student id between 100000000 and 999999999
+	            </div>
+	    	</div>
+    	</div>
+
+	</form>
+
+<div class="text-center pt-5 bottom-ephemeral-message">
+    <h5>{{ message }}</h5>
+</div>
 {% endblock body %}

@@ -10,7 +10,7 @@ def student():
 
 	def render_page(message = ""):
 		"""Nested function to reduce clutter and repetition"""
-		return render_template("addStudent.html", message = message)
+		return render_template("addStudent.html", message=message)
 
 	if request.method == 'POST':
 
@@ -20,7 +20,7 @@ def student():
 		start_year = request.form['start_year']
 
 		#Server side validation
-		if not validate_student(student_firstname, student_lastname, student_id, start_year):
+		if not validate_student(student_id, student_firstname, student_lastname, start_year):
 			return render_page("Please check if the entered data is valid")
 
 		#Form a successful database connection
