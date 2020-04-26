@@ -13,7 +13,9 @@ window.addEventListener('load', () => {
 		});
 
 		element.addEventListener('reset', (event) => {
+			var item = document.querySelector('.bottom-help-message');
 			element.classList.remove('was-validated');
+			item.innerHTML = "";
 		});
 	});
 

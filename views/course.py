@@ -6,7 +6,6 @@ course_page = Blueprint('course_page', __name__, template_folder='templates')
 
 @course_page.route('/course', methods = ['POST', 'GET'])
 def add_course():
-
 	"""Handler to add courses to the database"""
 
 	def render_page(message = ""):

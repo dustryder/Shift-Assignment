@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS student (
 	student_id INT PRIMARY KEY,
     first_name VARCHAR(30),
     last_name VARCHAR(30),
-    start_date INT
+    start_year INT
 ) engine = InnoDB;
 
 CREATE TABLE IF NOT EXISTS enrolment (
