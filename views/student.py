@@ -5,7 +5,6 @@ import extra.dbconfig as db
 student_page = Blueprint('student_page', __name__, template_folder='templates')
 
 @student_page.route('/student', methods = ['POST', 'GET'])
-
 def student():
 
 	if request.method == 'POST':
