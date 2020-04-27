@@ -8,16 +8,21 @@ STRING_MAX = 100
 STRING_MIN = 1
 
 
-def validate_course(code, title, year):
+def validate_course(code, title=True, year=True):
 
 
 	try:
 		code_valid = re.match("^[a-zA-Z]{4}[0-9]{3}$", code)
-		title_valid = len(title) <= STRING_MAX and len(title) >= STRING_MIN
-		year_valid = int(year) <= YEAR_MAX and int(year) >= YEAR_MIN
 
-		if code_valid and title_valid and year_valid:
-			return True
+		if not isinstance(title, bool):
+			title_valid = len(title) <= STRING_MAX and len(title) >= STRING_MIN
+			year_valid = int(year) <= YEAR_MAX and int(year) >= YEAR_MIN
+
+			if code_valid and title_valid and year_valid:
+				return True
+
+		return code_valid
+
 	except Exception as e:
 		print(e)
 		print("Error in validation")

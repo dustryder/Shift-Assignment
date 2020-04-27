@@ -6,6 +6,7 @@
 {% endblock title %}
 
 {% block body %}
+
 <div class="d-flex container-liquid justify-content-center">
 
 	<form action="/" method="POST" class="mt-5 needs-validation w-100" novalidate>
@@ -13,7 +14,7 @@
 		<div class="row justify-content-center">
 	    	<div class="form-group col-md-3">
 	    		<label for="student_name" class="sr-only">Student Name</label>
-	    		<input type="text" class="form-control" id="student_name_lookup" placeholder="Student Name" maxlength="100" name="student_name" list="student_name" required>
+	    		<input type="text" class="form-control" id="student_name_lookup" placeholder="James Smith" data-toggle="tooltip" data-placement="right" title="Student name" maxlength="100" name="student_name" list="student_name" required>
 	    		<input type="hidden" id="hidden_studentid" name="student_id">
 	    		<datalist id="student_name">
 	    			{% for i in students %}
@@ -23,7 +24,6 @@
 	            <div class="invalid-feedback text-center">
 	                Please enter a name
 	            </div>
-
 	    	</div>
     	</div>
 
@@ -37,13 +37,13 @@
 </div>
 
 <div class="text-center pt-5 bottom-ephemeral-message">
-    <h5>{{ message }}</h5>
+    <h5 class="h5">{{ message }}</h5>
 </div>
 
 {% if courses %}
 <div class="container justify-content-center bottom-ephemeral-message">
 	<div class="text-center bottom-ephemeral-message pb-3">
-		<h4>{{ student[1] }} {{ student[2] }}</h4>
+		<h4 class="h4">{{ student[1] }} {{ student[2] }}</h4>
 		<p>Id: {{ student[0] }} &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp Start Year: {{ student[3] }}</p>
 	</div>
 
@@ -66,6 +66,5 @@
 		</tbody>
 	</table>
 </div>
-
 {% endif %}
 {% endblock body %}

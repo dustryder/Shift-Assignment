@@ -8,19 +8,49 @@
 {% block body %}
 <div class="d-flex container-liquid justify-content-center">
 
-	<form action="/student" method="POST" class="mt-5 needs-validation w-100" novalidate>
+	<form action="/enrolment" method="POST" class="mt-5 needs-validation w-100" novalidate>
 
-		<div class="row justify-content-center">
+		<div class="form-row justify-content-center">
+
 	    	<div class="form-group col-md-3">
-	    		<label for="student_id" class="sr-only">Student Id</label>
-	    		<input type="number" class="form-control" id="student_id" placeholder="Student Id" min="100000000" max="999999999" name="student_id" required>
+	    		<label for="student_name" class="sr-only">Student Name</label>
+	    		<input type="text" class="form-control" id="student_name_lookup" placeholder="James Smith" data-toggle="tooltip" data-placement="right" title="Student name" maxlength="100" name="student_name" list="student_name" required>
+	    		<input type="hidden" id="hidden_studentid" name="student_id">
+	    		<datalist id="student_name">
+	    			{% for student in students %}
+	    				<option data-id="{{ student['id'] }}" value="{{ student['name'] }}">id: {{ student['id'] }}</option>
+	    			{% endfor %}
+	    		</datalist>
 	            <div class="invalid-feedback text-center">
-	                Please enter a valid student id between 100000000 and 999999999
+	                Please enter a name
 	            </div>
 	    	</div>
+
+	    	<div class="form-group col-md-3">
+	    		<label for="course_title" class="sr-only">Course Title</label>
+	    		<input type="text" class="form-control" id="course_title_lookup" placeholder="Introduction to Computer Programming" data-toggle="tooltip" data-placement="right" title="Course title" maxlength="100" name="course_title" list="course_title" required>
+	    		<input type="hidden" id="hidden_coursecode" name="course_code">
+	    		<datalist id="course_title">
+	    			{% for course in courses %}
+	    				<option data-id="{{ course['code'] }}" value="{{ course['title'] }}">{{ course['code'] }}-{{ course['year'] }}</option>
+	    			{% endfor %}
+	    		</datalist>
+	            <div class="invalid-feedback text-center">
+	                Please select a course
+	            </div>
+	    	</div>
+
+		</div>
+
+
+		<div class="row justify-content-center align-self-center">
+    		<div class="form-group m-1">
+    			<button type="submit" class="btn btn-outline-primary">Submit</button>
+    		</div>
     	</div>
 
 	</form>
+</div>
 
 <div class="text-center pt-5 bottom-ephemeral-message">
     <h5>{{ message }}</h5>

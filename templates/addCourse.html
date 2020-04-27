@@ -13,7 +13,7 @@
         <div class="row justify-content-center">
             <div class="form-group col-md-6">
                 <label for="course_title" class="sr-only">Course Title</label>
-                <input type="text" class="form-control" id="course_title" placeholder="Course Title" maxlength="100" name="course_title" required>
+                <input type="text" class="form-control" data-toggle="tooltip" data-placement="right" title="Course title" id="course_title" placeholder="Introduction to Computer Programming" maxlength="100" name="course_title" required>
                 <div class="invalid-feedback text-center">
                     Please enter a valid course title
                 </div>
@@ -24,7 +24,7 @@
 
         	<div class="form-group col-md-3">
         		<label for="course_code" class="sr-only">Course Code</label>
-                <input type="text" class="form-control" id="course_code" placeholder="Course Code" maxlength="7" pattern="[A-Za-z]{4}[0-9]{3}" name="course_code" required>
+                <input type="text" class="form-control" data-toggle="tooltip" data-placement="right" title="Course code" id="course_code" placeholder="COSC121" maxlength="7" pattern="[A-Za-z]{4}[0-9]{3}" name="course_code" required>
                 <div class="invalid-feedback text-center">
                     Please enter a valid course code of the form XXXX999
                 </div>
@@ -34,7 +34,7 @@
 
     	<div class="form-group form-inline justify-content-center">
     		<label for="delivery_year" class="sr-only">Delivery Year</label>
-    		<input type="number" min="1950" max="2050" class="form-control" placeholder="Year" id="delivery_year" name="delivery_year"required>
+    		<input type="number" min="1950" max="2050" class="form-control" data-toggle="tooltip" data-placement="right" title="Delivery year" placeholder="2020" id="delivery_year" name="delivery_year"required>
             <div class="invalid-feedback text-center">
                 Please enter a valid delivery year between 1950 and 2050
             </div>
