@@ -1,5 +1,5 @@
 from flask import Flask
-from views import course, student, enrolment, lookup
+from views import course, student, lookup
 import extra.config
 
 
@@ -8,7 +8,6 @@ app.config["SECRET_KEY"] = extra.config.SECRET_KEY
 
 app.register_blueprint(course.course_page)
 app.register_blueprint(student.student_page)
-app.register_blueprint(enrolment.enrolment_page)
 app.register_blueprint(lookup.lookup_page)
 
 if __name__ == '__main__':

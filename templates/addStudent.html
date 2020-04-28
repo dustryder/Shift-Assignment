@@ -6,13 +6,14 @@
 {% endblock title %}
 
 {% block body %}
+<h2 class="h2 text-center pt-4">Add a Student</h2>
 <div class="d-flex container-liquid justify-content-center">
 
-    <form action="/student" method="POST" class="mt-5 needs-validation w-100" novalidate>
+    <form action="/student" method="POST" class="pt-4 needs-validation w-100" novalidate>
 		
 		<div class="form-row justify-content-center">
 
-			<div class="form-group col-md-3">
+			<div class="form-group col-md-2">
 				<label for="first_name" class="sr-only">First Name</label>
             	<input type="text" class="form-control" data-toggle="tooltip" data-placement="right" title="First name" id="first_name" placeholder="James" maxlength="100" name="first_name" required>
             	<div class="invalid-feedback text-center">
@@ -20,7 +21,7 @@
             	</div>	
 			</div>
 
-			<div class="form-group col-md-3">
+			<div class="form-group col-md-2">
 				<label for="last_name" class="sr-only">Last Name</label>
             	<input type="text" class="form-control" data-toggle="tooltip" data-placement="right" title="Last name" id="last_name" placeholder="Smith" maxlength="100" name="last_name" required>
             	<div class="invalid-feedback text-center">

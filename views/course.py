@@ -14,7 +14,7 @@ def add_course():
 
 	if request.method == 'POST':
 
-		course_code = request.form['course_code']
+		course_code = request.form['course_code'].upper()
 		course_title = request.form['course_title']
 		delivery_year = request.form['delivery_year']
 
