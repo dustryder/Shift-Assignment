@@ -1,3 +1,8 @@
+"""TODO: Handle cases where dropdown is the same
+"""
+
+
+
 from flask import Blueprint, render_template, request
 from extra.validators import validate_student, validate_course
 import extra.dbconfig as db
@@ -15,11 +20,11 @@ def lookup():
 		print("Could not form connection")
 
 	#Retrieves all students in database
-	query = "SELECT student_id, first_name, last_name FROM student"
+	query = "SELECT student_id, first_name, last_name, start_year FROM student"
 	result = db.execute(db.MODE_SELECT, cursor, query)
 	if not result:
 		print("Could not retrieve student data")
-	students = [{"id":id, 'name':f"{fname} {lname}"} for id, fname, lname in result]
+	students = [{"id":id, 'name':f"{fname} {lname}"} for id, fname, lname, year in result]
 
 	#Retrieves all courses in database
 	query = "SELECT course_code, course_title, delivery_year FROM course"

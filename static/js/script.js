@@ -2,6 +2,7 @@ window.addEventListener('load', () => {
 
 	var forms = document.querySelectorAll('.needs-validation');
 	var inputs = document.querySelectorAll('input');
+	//Default variables that will fail serverside validation if an option is not selected or valid unique identifier is not given
 	var lookupDataStudentId = "Invalid";
 	var lookupDataCourseCode = "Invalid";
 
@@ -71,13 +72,18 @@ window.addEventListener('load', () => {
 		element.addEventListener('input', () => {
 			let choice = document.querySelector(`option[value="${element.value}"]`);
 			if (choice) {
-				if (element.id === "student-name-lookup") {
-					lookupDataStudentId = choice.getAttribute("data-id");
-				}
-				if (element.id === "course-title-lookup") {
-					lookupDataCourseCode = choice.getAttribute("data-id");
-				}
+				//Set value to data contained in data-id propery of option elements
+				item = choice.getAttribute("data-id");
+				if (element.id === "student-name-lookup") lookupDataStudentId = item;
+				if (element.id === "course-title-lookup") lookupDataCourseCode = item;
+
+			} else {
+				//If an option is not selected, set the value to typed value
+				item = element.value;
+				if (element.id === "student-name-lookup") lookupDataStudentId = item;
+				if (element.id === "course-title-lookup") lookupDataCourseCode = item;
 			}
+
 		});
 	});
 

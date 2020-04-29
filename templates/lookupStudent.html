@@ -18,7 +18,7 @@
 	    		<input type="hidden" id="hidden-studentid" name="student_id">
 	    		<datalist id="student_name">
 	    			{% for student in students %}
-	    				<option data-id="{{ student['id'] }}" value="{{ student['name'] }}">id: {{ student['id'] }}</option>
+	    				<option data-id="{{ student['id'] }}" value="{{ student['name'] }} - {{ student['id'] }}"></option>
 	    			{% endfor %}
 	    		</datalist>
 	            <div class="invalid-feedback text-center">
