@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% set active_page = "search" %}
+
+{% block title %}
+<title>Student Search</title>
+{% endblock title %}
+
+{% block body %}
+<h2 class="h2 text-center pt-4">Search for a student</h2>
+<div class="d-flex container-liquid justify-content-center">
+	<form action="/search" method="POST" class="pt-4 needs-validation w-100" novalidate>
+		<div class="row justify-content-center">
+			<div class="form-group col-md-2">
+					<label for="name" class="sr-only">Name</label>
+	            	<input type="text" class="form-control" data-toggle="tooltip" data-placement="right" title="name" id="name" placeholder="James" maxlength="100" name="name" required>
+	            	<div class="invalid-feedback text-center">
+	                Please enter a string
+	            	</div>	
+			</div>
+		</div>
+
+        <div class="row justify-content-center">
+    		<div class="form-group m-1">
+    			<button type="submit" class="btn btn-outline-primary">Submit</button>
+    		</div>
+    	</div>
+
+	</form>
+</div>
+
+{% if students %}
+{% set titles = ["Name", "Start Year", "Student Id"] %}
+<div class="container justify-content-center bottom-ephemeral-message">
+
+	<h2 class="h2 text-center pt-4">Results</h2>
+	
+	<table class="table table-hover table-sm mx-auto col-6">
+		<thead>
+			<tr>
+				{% for title in titles %}
+				<th id="zapborder" scope="col" class="{{ "text-right" if title=="Student Id" else "" }}">{{ title }}</th>
+				{% endfor %}
+			</tr>
+		</thead>
+		<tbody>
+			{% for row in students %}
+			<tr>
+				{% for data in row %}
+				<td class="{{ "text-right" if loop.index == 3 else "" }}">{{ data }}</td>
+				{% endfor %}
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+
+</div>
+
+{% endif %}
+
+<div class="text-center pt-5 bottom-ephemeral-message">
+    <h5 class="h5">{{ message }}</h5>
+</div>
+{% endblock body %}
