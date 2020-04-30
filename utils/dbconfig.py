@@ -1,5 +1,5 @@
 import mysql.connector
-from extra.config import config
+from utils.config import config
 
 MODE_INSERT = "insert"
 MODE_SELECT = "select"

@@ -1,37 +1,37 @@
 from flask import Blueprint, render_template, request
-import extra.dbconfig as db
+import utils.dbconfig as db
+import utils.strings as string
 
+TEMPLATE = "searchStudent.html"
 search_page = Blueprint('search_page', __name__, template_folder='templates')
+
 
 @search_page.route('/search', methods = ['POST', 'GET'])
 def search():
 
-	def render_page(message=""):
-
-		return render_template("searchStudent.html", message=message)
-
 	if request.method == 'POST':
 		
+		#Are we sent an empty string?
 		student_string = request.form['name']
 		if not student_string:
-			return render_page("Please enter a string")
+			return render_template(TEMPLATE, message=string.DATA_INVALID)
 
+		#Form a successful database connection
 		connection = db.get_connection()
 		cursor = db.get_cursor(connection)
 		if not cursor or not connection:
-			return render_page("Please check your database connection settings")
+			return render_template(TEMPLATE, message=string.DATABASE_CHECK)
 
-		query = "SELECT CONCAT(first_name, ' ',last_name), start_year, student_id "\
-				"FROM student WHERE first_name LIKE %s OR last_name LIKE %s"
-		param = "%"+student_string+"%"
-
-		students = db.execute(db.MODE_SELECT, cursor, query, (param,param))
+		param = f"%{student_string}%"
+		students = db.execute(db.MODE_SELECT, cursor, string.SEARCH_QUERY_SELECT, (param,param))
 		db.close_connection(connection, cursor)
 
+		#Given string didn't return any results
 		if not students:
-			return render_page(f"No students could be found for the string {student_string}")
+			return render_template(TEMPLATE, message=string.SEARCH_NONE.format(student_string))
 
-		return render_template("searchStudent.html", students=students)
+		#Display table of results where string LIKE %first% or %last% names
+		return render_template(TEMPLATE, students=students)
 
 	else:
-		return render_page()
+		return render_template(TEMPLATE)

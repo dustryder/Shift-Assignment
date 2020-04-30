@@ -1,10 +1,10 @@
 from flask import Flask
 from views import course, student, lookup, search
-import extra.config
+import utils.config
 
 
 app = Flask(__name__)
-app.config["SECRET_KEY"] = extra.config.SECRET_KEY
+app.config["SECRET_KEY"] = utils.config.SECRET_KEY
 
 app.register_blueprint(course.course_page)
 app.register_blueprint(student.student_page)
